@@ -12,6 +12,31 @@ Meaning:
 
 This preference does **not** force dark mode. It only affects apps that are already using dark mode.
 
+
+## For users
+
+You can enable the preference today, but apps will only respond to it if they support Open Appearance Preferences.
+
+On Windows:
+
+1. Open [`examples/windows/Enable True Black Dark Mode Preference.reg`](examples/windows/Enable%20True%20Black%20Dark%20Mode%20Preference.reg).
+2. Double-click it.
+3. Accept the Windows registry prompt.
+
+This creates a per-user preference:
+
+```text
+HKEY_CURRENT_USER\Software\OpenAppearance\Preferences
+PreferTrueBlackInDarkMode = 1
+```
+
+It does not force Windows into dark mode.
+It does not change unsupported apps.
+It does not require admin rights.
+
+See [`docs/for-users.md`](docs/for-users.md) for the full user guide.
+
+
 ## Why this exists
 
 Operating systems and browsers commonly expose whether the user prefers light mode or dark mode. Many apps also support dark mode.
@@ -78,6 +103,8 @@ Recommended priority:
 - [`SPEC.md`](SPEC.md) — the actual draft specification.
 - [`RATIONALE.md`](RATIONALE.md) — why the spec exists and why it is intentionally small.
 - [`ADOPTION.md`](ADOPTION.md) — how apps and libraries can support it.
+- [`docs/for-users.md`](docs/for-users.md) — how users can enable and understand the preference.
+- [`docs/request-app-support.md`](docs/request-app-support.md) — message templates for asking apps to support it.
 - [`docs/platform-notes.md`](docs/platform-notes.md) — Windows, Linux, macOS, Android, iOS, web, and framework notes.
 - [`docs/naming.md`](docs/naming.md) — naming decisions and rejected names.
 - [`docs/future-preferences.md`](docs/future-preferences.md) — possible future ideas, intentionally not included in v1.
