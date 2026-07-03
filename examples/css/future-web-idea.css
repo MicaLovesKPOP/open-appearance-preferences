@@ -1,0 +1,13 @@
+/*
+This is not a real web standard.
+
+It shows what a future web-facing version might look like if browsers ever
+support a dark-surface preference.
+*/
+
+@media (prefers-color-scheme: dark) and (prefers-dark-surface: true-black) {
+  :root {
+    --app-background: #000000;
+    --app-surface: #050505;
+  }
+}

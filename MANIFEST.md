@@ -1,0 +1,23 @@
+# File manifest
+
+- `.github/ISSUE_TEMPLATE/adoption-report.md`
+- `.github/ISSUE_TEMPLATE/proposal.md`
+- `ADOPTION.md`
+- `CONTRIBUTING.md`
+- `LICENSE`
+- `RATIONALE.md`
+- `README.md`
+- `SPEC.md`
+- `docs/future-preferences.md`
+- `docs/launch-posts.md`
+- `docs/naming.md`
+- `docs/platform-notes.md`
+- `examples/csharp/OpenAppearancePreferences.cs`
+- `examples/css/future-web-idea.css`
+- `examples/javascript/electron-example.js`
+- `examples/json/preferences.example.json`
+- `examples/python/open_appearance.py`
+- `examples/windows/check-preference.ps1`
+- `examples/windows/disable-true-black.reg`
+- `examples/windows/enable-true-black.reg`
+- `examples/windows/set-preference.ps1`
