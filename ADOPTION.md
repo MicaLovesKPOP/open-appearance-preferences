@@ -14,9 +14,27 @@ This preference is useful for:
 - terminal and CLI tool developers
 - browser extension authors
 
+## Adoption levels
+
+Apps can support Open Appearance Preferences at two levels.
+
+### Level 1: Reader
+
+The app reads `PreferTrueBlackInDarkMode` and respects it when dark mode is active.
+
+This is the minimum useful implementation.
+
+### Level 2: Reader + Setter
+
+The app reads `PreferTrueBlackInDarkMode` and also provides a standardized user-facing setting to enable or disable it.
+
+Level 2 support is optional, but recommended for apps that already have Appearance, Theme, Display, or Personalization settings.
+
+Apps without settings UI, command-line tools, libraries, and sandboxed apps may support Level 1 without supporting Level 2.
+
 ## Minimum viable support
 
-An app can support this preference with three steps:
+An app can support Level 1 with three steps:
 
 1. Detect whether the app is currently using dark mode.
 2. Read `PreferTrueBlackInDarkMode`.
@@ -43,6 +61,24 @@ PreferTrueBlackInDarkMode
 Treat only `REG_DWORD 1` as enabled.
 
 Treat missing, invalid, or `0` as no special preference.
+
+Apps with Level 2 support may write the same per-user value.
+
+When enabled, write:
+
+```text
+PreferTrueBlackInDarkMode = 1
+```
+
+When disabled, write:
+
+```text
+PreferTrueBlackInDarkMode = 0
+```
+
+Do not require administrator rights.
+
+Do not write to `HKEY_LOCAL_MACHINE`.
 
 ## Cross-platform fallback
 
@@ -96,27 +132,58 @@ Use this priority order:
 4. `PreferTrueBlackInDarkMode`
 5. Application default styling
 
-## User-facing setting
+## Standard user-facing setting
 
-If your app already has a theme settings page, consider adding:
+If your app provides Level 2 support, use the same wording as other supporting apps.
+
+Recommended location:
+
+```text
+Settings → Appearance
+```
+
+Recommended label:
 
 ```text
 Prefer true black in dark mode
 ```
 
-Description:
+Recommended helper text:
 
 ```text
-Use pure black or OLED-friendly surfaces when dark mode is enabled.
+Use pure black or OLED-friendly surfaces when dark mode is on. Only supported apps will change.
 ```
 
-Avoid:
+Recommended layout:
 
 ```text
-Force OLED mode
+[ ] Prefer true black in dark mode
+    Use pure black or OLED-friendly surfaces when dark mode is on. Only supported apps will change.
 ```
 
-because the preference should not force dark mode and should not imply hardware detection.
+Longer helper text, if there is room:
+
+```text
+Use pure black or OLED-friendly surfaces when dark mode is on. This does not force dark mode and only affects apps that support Open Appearance Preferences.
+```
+
+## App-local fallback setting
+
+Some apps may be sandboxed or may not be able to write the global/platform preference safely.
+
+In that case, the app may expose an app-local preference using this label:
+
+```text
+Prefer true black in dark mode for this app
+```
+
+Recommended helper text:
+
+```text
+Use pure black or OLED-friendly surfaces in this app when dark mode is on.
+```
+
+Do not present an app-local setting as a system-wide preference.
 
 ## Suggested color approach
 
@@ -138,8 +205,12 @@ Do not:
 
 - Force dark mode when the app is light.
 - Override high-contrast or forced-color modes.
+- Silently enable the preference.
+- Change the preference during installation.
 - Use the preference for analytics or profiling.
 - Assume the display is OLED.
+- Label the setting only as "OLED mode" or "AMOLED mode".
+- Imply that unsupported apps will change.
 - Break readability just to use pure black everywhere.
 - Change documents, images, videos, design previews, or charts where color accuracy matters.
 
@@ -154,12 +225,21 @@ It is a tiny optional preference meaning:
 
 It does not force dark mode and should not override accessibility settings.
 
-Spec:
-https://github.com/YOUR-USER/open-appearance-preferences
+There are two support levels:
 
-Minimum support would be:
-- read the Windows registry value or JSON fallback
-- if dark mode is already active and the preference is enabled, use the app's pure-black dark variant if available
+- Level 1: read the preference and respect it in dark mode.
+- Level 2: also expose a standardized setting so users can enable or disable it.
+
+If the app exposes the setting, the recommended label is:
+
+`Prefer true black in dark mode`
+
+Recommended helper text:
+
+`Use pure black or OLED-friendly surfaces when dark mode is on. Only supported apps will change.`
+
+Spec:
+https://github.com/MicaLovesKPOP/open-appearance-preferences
 
 Thanks!
 ```
