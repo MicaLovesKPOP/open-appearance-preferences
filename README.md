@@ -34,7 +34,38 @@ It does not force Windows into dark mode.
 It does not change unsupported apps.
 It does not require admin rights.
 
+Apps that support the spec may also expose the same setting directly in their own Appearance settings.
+
+Recommended label:
+
+```text
+Prefer true black in dark mode
+```
+
+Recommended helper text:
+
+```text
+Use pure black or OLED-friendly surfaces when dark mode is on. Only supported apps will change.
+```
+
 See [`docs/for-users.md`](docs/for-users.md) for the full user guide.
+
+
+## For developers
+
+Apps can support Open Appearance Preferences at two levels.
+
+### Level 1: Reader
+
+The app reads `PreferTrueBlackInDarkMode` and respects it when dark mode is active.
+
+### Level 2: Reader + Setter
+
+The app reads `PreferTrueBlackInDarkMode` and also provides a standardized user-facing setting to enable or disable it.
+
+Level 2 support is optional. Apps without settings UI, libraries, command-line tools, and sandboxed apps may support Level 1 without supporting Level 2.
+
+See [`docs/user-facing-ui.md`](docs/user-facing-ui.md) for the recommended wording, placement, and behavior.
 
 
 ## Why this exists
@@ -51,6 +82,7 @@ Some apps have their own "AMOLED", "Lights out", "OLED", or "true black" toggles
 
 - One clear preference.
 - Easy for developers to support.
+- Consistent wording and UI where apps expose the preference.
 - No interference with system light/dark mode.
 - No interference with accessibility settings.
 - Per-user, local-only, and privacy-respecting.
@@ -105,6 +137,7 @@ Recommended priority:
 - [`ADOPTION.md`](ADOPTION.md) — how apps and libraries can support it.
 - [`docs/for-users.md`](docs/for-users.md) — how users can enable and understand the preference.
 - [`docs/request-app-support.md`](docs/request-app-support.md) — message templates for asking apps to support it.
+- [`docs/user-facing-ui.md`](docs/user-facing-ui.md) — standardized user-facing labels, helper text, and setting behavior.
 - [`docs/platform-notes.md`](docs/platform-notes.md) — Windows, Linux, macOS, Android, iOS, web, and framework notes.
 - [`docs/naming.md`](docs/naming.md) — naming decisions and rejected names.
 - [`docs/future-preferences.md`](docs/future-preferences.md) — possible future ideas, intentionally not included in v1.
@@ -118,11 +151,17 @@ This project is intentionally small. The goal is not to create a full theme syst
 
 ## Recommended user-facing wording
 
-Good:
+Use this label when exposing the global preference:
 
-- "Prefer true black in dark mode"
-- "Use OLED-friendly black surfaces in dark mode"
-- "Prefer pure black backgrounds when dark mode is on"
+```text
+Prefer true black in dark mode
+```
+
+Use this helper text:
+
+```text
+Use pure black or OLED-friendly surfaces when dark mode is on. Only supported apps will change.
+```
 
 Avoid:
 
