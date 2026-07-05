@@ -78,6 +78,36 @@ You can also run:
 .\examples\windows\check-preference.ps1
 ```
 
+## Enable inside a supporting app
+
+Apps that support Open Appearance Preferences may also let you enable or disable the same preference from inside the app.
+
+Recommended location:
+
+```text
+Settings → Appearance
+```
+
+Recommended label:
+
+```text
+Prefer true black in dark mode
+```
+
+Recommended helper text:
+
+```text
+Use pure black or OLED-friendly surfaces when dark mode is on. Only supported apps will change.
+```
+
+If a setting says this, it should control the same `PreferTrueBlackInDarkMode` preference.
+
+Some sandboxed apps may only be able to change their own local setting. In that case, the app should say:
+
+```text
+Prefer true black in dark mode for this app
+```
+
 ## Will this affect my apps?
 
 Only if the app supports Open Appearance Preferences.
