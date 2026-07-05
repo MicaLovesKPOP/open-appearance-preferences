@@ -5,18 +5,24 @@
 - `ADOPTION.md`
 - `CONTRIBUTING.md`
 - `LICENSE`
+- `MANIFEST.md`
 - `RATIONALE.md`
 - `README.md`
 - `SPEC.md`
+- `docs/for-users.md`
 - `docs/future-preferences.md`
 - `docs/launch-posts.md`
 - `docs/naming.md`
 - `docs/platform-notes.md`
+- `docs/request-app-support.md`
+- `docs/user-facing-ui.md`
 - `examples/csharp/OpenAppearancePreferences.cs`
 - `examples/css/future-web-idea.css`
 - `examples/javascript/electron-example.js`
 - `examples/json/preferences.example.json`
 - `examples/python/open_appearance.py`
+- `examples/windows/Disable True Black Dark Mode Preference.reg`
+- `examples/windows/Enable True Black Dark Mode Preference.reg`
 - `examples/windows/check-preference.ps1`
 - `examples/windows/disable-true-black.reg`
 - `examples/windows/enable-true-black.reg`
