@@ -20,6 +20,7 @@ It lets a user express:
 
 - Give users a simple way to request true-black dark mode.
 - Let applications support the preference without changing how they already detect light mode or dark mode.
+- Provide consistent wording and behavior when applications expose a user-facing setting for the preference.
 - Avoid interfering with operating-system dark mode, app-specific theme settings, or accessibility settings.
 - Keep implementation simple enough that individual developers, frameworks, and theme libraries can adopt it quickly.
 
@@ -30,6 +31,7 @@ It lets a user express:
 - This specification does not require exact colors.
 - This specification does not attempt to detect whether the user's display is OLED.
 - This specification is not a full theme system.
+- This specification does not require every supporting application to provide a settings UI.
 
 ## Preference name
 
@@ -52,6 +54,26 @@ Boolean.
 | `true` / `1` | Prefer true-black surfaces in dark mode |
 
 Invalid values must be treated as missing.
+
+## Adoption levels
+
+Applications may support this specification at either of two levels.
+
+### Level 1: Reader
+
+The application reads `PreferTrueBlackInDarkMode` and respects it when dark mode is active.
+
+Level 1 is the minimum useful implementation.
+
+### Level 2: Reader + Setter
+
+The application reads `PreferTrueBlackInDarkMode` and also provides a user-facing setting to enable or disable it.
+
+Level 2 support is optional.
+
+Apps without appearance settings, apps without settings UI, libraries, command-line tools, and sandboxed apps may support Level 1 without supporting Level 2.
+
+When an application provides Level 2 support, it should follow the user-facing UI guidance in this specification.
 
 ## Priority order
 
@@ -82,6 +104,53 @@ If the application is using dark mode and `PreferTrueBlackInDarkMode` is enabled
 
 Applications may partially apply or ignore this preference where true black would harm readability, accessibility, brand requirements, content accuracy, or usability.
 
+## User-facing setting UI
+
+Applications that provide Level 2 support should use consistent wording so users see the same concept across different apps.
+
+Recommended setting label:
+
+```text
+Prefer true black in dark mode
+```
+
+Recommended helper text:
+
+```text
+Use pure black or OLED-friendly surfaces when dark mode is on. Only supported apps will change.
+```
+
+Longer helper text:
+
+```text
+Use pure black or OLED-friendly surfaces when dark mode is on. This does not force dark mode and only affects apps that support Open Appearance Preferences.
+```
+
+Recommended placement:
+
+```text
+Settings → Appearance
+```
+
+Recommended layout:
+
+```text
+[ ] Prefer true black in dark mode
+    Use pure black or OLED-friendly surfaces when dark mode is on. Only supported apps will change.
+```
+
+Applications should not silently enable this preference, change it during installation, or imply that unsupported apps will change.
+
+Applications should not require administrator rights to change this preference.
+
+If an app cannot safely write the global/platform preference, it may expose an app-local setting instead. App-local settings should use this label:
+
+```text
+Prefer true black in dark mode for this app
+```
+
+App-local settings should not be presented as system-wide preferences.
+
 ## Windows registry binding
 
 Registry path:
@@ -110,6 +179,8 @@ Windows Registry Editor Version 5.00
 Applications should read this from `HKEY_CURRENT_USER`, not `HKEY_LOCAL_MACHINE`, because this is a per-user preference.
 
 Applications may read the value at startup. Applications that already respond live to operating-system theme changes may also re-read the value when their theme is refreshed.
+
+Applications that provide Level 2 support on Windows may write this same per-user value.
 
 ## JSON fallback binding
 
@@ -212,11 +283,23 @@ It must not override high-contrast mode, forced-color mode, reduced-motion prefe
 
 ## Recommended user-facing wording
 
-Good:
+Use this label when exposing the global preference:
 
-- "Prefer true black in dark mode"
-- "Use OLED-friendly black surfaces in dark mode"
-- "Prefer pure black backgrounds when dark mode is on"
+```text
+Prefer true black in dark mode
+```
+
+Use this helper text:
+
+```text
+Use pure black or OLED-friendly surfaces when dark mode is on. Only supported apps will change.
+```
+
+If the setting only affects the current app, use this label instead:
+
+```text
+Prefer true black in dark mode for this app
+```
 
 Avoid:
 
@@ -253,14 +336,17 @@ Normative:
 
 - The preference name.
 - The meaning of the preference.
+- The values.
 - The expected behavior.
 - The accessibility priority rules.
+- The user-facing wording for apps that expose the setting.
 
 Recommended:
 
 - Windows registry binding.
 - JSON fallback binding.
 - Environment variable binding.
+- User-facing UI layout and helper text.
 
 Informative:
 
